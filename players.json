@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "山田 太郎",
+        "age": 26,
+        "position": "P",
+        "throw_hand": "R",
+        "bat_hand": "S",
+
+        "contact": 30,
+        "power": 25,
+        "eye": 35,
+
+        "speed": 50,
+        "baserunning": 45,
+
+        "fielding": 55,
+        "arm_strength": 80,
+        "throwing": 70,
+
+        "velocity": 154,
+        "control": 72,
+        "stamina": 80,
+
+        "pitches": [
+            {
+                "name": "カーブ",
+                "movement": 3,
+                "power": 50
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "佐藤 次郎",
+        "age": 27,
+        "position": "P",
+        "throw_hand": "L",
+        "bat_hand": "L",
+
+        "contact": 30,
+        "power": 25,
+        "eye": 35,
+
+        "speed": 50,
+        "baserunning": 45,
+
+        "fielding": 55,
+        "arm_strength": 80,
+        "throwing": 70,
+
+        "velocity": 143,
+        "control": 72,
+        "stamina": 80,
+
+        "pitches": [
+            {
+                "name": "スライダー",
+                "movement": 8,
+                "power": 82
+            }
+        ]
+    }
+]

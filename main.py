@@ -1,31 +1,81 @@
-from player import Player
+import json
+
+from player import Player, Pitch
 from team import Team
 
 
-player1 = Player(
-    name="田中 太郎",
-    age=22,
-    position="P"
-)
+def main():
 
-player2 = Player(
-    name="佐藤 次郎",
-    age=25,
-    position="C"
-)
+    with open("players.json", encoding="utf-8") as file:
+        players_data = json.load(file)
+    with open("teams.json", encoding="utf-8") as file:
+        teams_data = json.load(file)
 
-player3 = Player(
-    name="鈴木 三郎",
-    age=20,
-    position="CF"
-)
+    players = []
+    players_by_id = {}
 
+    for player_data in players_data:
 
-team = Team("東京ファルコンズ")
+        pitches = []
 
-team.add_player(player1)
-team.add_player(player2)
-team.add_player(player3)
+        for pitch_data in player_data["pitches"]:
+            pitch = Pitch(
+                name=pitch_data["name"],
+                movement=pitch_data["movement"],
+                power=pitch_data["power"]
+            )
 
+            pitches.append(pitch)
 
-team.show_info()
+        player = Player(
+            player_id=player_data["id"],
+            name=player_data["name"],
+            age=player_data["age"],
+            position=player_data["position"],
+            throw_hand=player_data["throw_hand"],
+            bat_hand=player_data["bat_hand"],
+
+            contact=player_data["contact"],
+            power=player_data["power"],
+            eye=player_data["eye"],
+
+            speed=player_data["speed"],
+            baserunning=player_data["baserunning"],
+
+            fielding=player_data["fielding"],
+            arm_strength=player_data["arm_strength"],
+            throwing=player_data["throwing"],
+
+            velocity=player_data["velocity"],
+            control=player_data["control"],
+            stamina=player_data["stamina"],
+
+            pitches=pitches
+        )
+
+        players.append(player)
+        players_by_id[player.player_id] = player
+
+    # チーム作成
+    teams = []
+
+    for team_data in teams_data:
+
+        team = Team(
+            team_data["name"]
+        )
+
+        for player_id in team_data["player_ids"]:
+
+            player = players_by_id[player_id]
+
+            team.add_player(player)
+
+        teams.append(team)
+
+    # チーム情報表示
+    for team in teams:
+        team.show_info()
+
+if __name__ == "__main__":
+    main()
