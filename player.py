@@ -118,18 +118,20 @@ class Player:
             "送球"
         )
 
-        # 投球能力
+       # 投球能力
         self.velocity = velocity
 
-        self.control = self.validate_stat(
-            control,
-            "制球"
-        )
-        self.stamina = self.validate_stat(
-            stamina,
-            "スタミナ"
+        self.control = (
+            self.validate_stat(control, "制球")
+            if control is not None
+            else None
         )
 
+        self.stamina = (
+            self.validate_stat(stamina, "スタミナ")
+            if stamina is not None
+            else None
+        )
         # 変化球
         self.pitches = pitches if pitches is not None else []
 
@@ -144,3 +146,43 @@ class Player:
             f"({self.age}歳 / {self.position}/"
             f"{throw_hand_label}投{bat_hand_label}打)"
         )
+    def show_detail(self):
+
+        print("\n===== 選手詳細 =====")
+
+        print(f"名前: {self.name}")
+        print(f"年齢: {self.age}歳")
+        print(f"ポジション: {self.position}")
+        print(
+            f"投球: {self.get_throw_hand_label()}投"
+        )
+        print(
+            f"打席: {self.get_bat_hand_label()}打"
+        )
+
+        print("\n【打撃能力】")
+        print(f"ミート: {self.contact}")
+        print(f"パワー: {self.power}")
+        print(f"選球眼: {self.eye}")
+
+        print("\n【走塁能力】")
+        print(f"走力: {self.speed}")
+        print(f"走塁: {self.baserunning}")
+
+        print("\n【守備能力】")
+        print(f"守備: {self.fielding}")
+        print(f"肩力: {self.arm_strength}")
+        print(f"送球: {self.throwing}")
+
+        # 投手の場合のみ投球能力を表示
+        if self.position == "P":
+
+            print("\n【投球能力】")
+            print(f"球速: {self.velocity}km/h")
+            print(f"制球: {self.control}")
+            print(f"スタミナ: {self.stamina}")
+
+            print("\n【変化球】")
+
+            for pitch in self.pitches:
+                print(f"- {pitch}")

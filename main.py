@@ -18,7 +18,7 @@ def main():
 
         pitches = []
 
-        for pitch_data in player_data["pitches"]:
+        for pitch_data in player_data.get("pitches", []):
             pitch = Pitch(
                 name=pitch_data["name"],
                 movement=pitch_data["movement"],
@@ -46,9 +46,9 @@ def main():
             arm_strength=player_data["arm_strength"],
             throwing=player_data["throwing"],
 
-            velocity=player_data["velocity"],
-            control=player_data["control"],
-            stamina=player_data["stamina"],
+            velocity=player_data.get("velocity"),
+            control=player_data.get("control"),
+            stamina=player_data.get("stamina"),
 
             pitches=pitches
         )
@@ -76,6 +76,32 @@ def main():
     # チーム情報表示
     for team in teams:
         team.show_info()
+
+   # 名前検索
+    team = teams[0]
+    
+    search_name = "後藤 昌幸"
+    
+    player = team.get_player_by_name(search_name)
+    
+    print("\n【名前検索】")
+    
+    if player is not None:
+        player.show_detail()
+    else:
+        print("選手が見つかりませんでした")
+    # ID検索
+    search_id = 7
+    
+    player = team.get_player_by_id(search_id)
+    
+    print("\n【ID検索】")
+    
+    if player is not None:
+        player.show_detail()
+    else:
+        print("選手が見つかりませんでした")
+        
 
 if __name__ == "__main__":
     main()
