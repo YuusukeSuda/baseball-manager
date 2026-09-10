@@ -84,7 +84,11 @@ class Player:
         velocity,
         control,
         stamina,
-        pitches=None
+        pitches=None,
+        plate_appearances=0,
+        at_bats=0,
+        hits=0,
+        runs_batted_in=0
     ):
         self.player_id = player_id
         self.name = name
@@ -135,6 +139,12 @@ class Player:
         # 変化球
         self.pitches = pitches if pitches is not None else []
 
+        # 野手成績
+        self.plate_appearances = plate_appearances
+        self.at_bats = at_bats
+        self.hits = hits
+        self.runs_batted_in = runs_batted_in
+
     def add_pitch(self, pitch):
         self.pitches.append(pitch)
 
@@ -165,6 +175,9 @@ class Player:
         print(f"パワー: {self.power}")
         print(f"選球眼: {self.eye}")
 
+        # 野手成績表示を分離
+        self.show_batting_stats()
+
         print("\n【走塁能力】")
         print(f"走力: {self.speed}")
         print(f"走塁: {self.baserunning}")
@@ -186,3 +199,15 @@ class Player:
 
             for pitch in self.pitches:
                 print(f"- {pitch}")
+
+    def show_batting_stats(self):
+
+        print("\n【野手成績】")
+        print(f"打席: {self.plate_appearances}")
+        print(f"打数: {self.at_bats}")
+        print(f"安打: {self.hits}")
+        print(f"打点: {self.runs_batted_in}")
+        avg = 0.0
+        if self.at_bats > 0:
+            avg = self.hits / self.at_bats
+        print(f"打率: {avg:.3f}")
